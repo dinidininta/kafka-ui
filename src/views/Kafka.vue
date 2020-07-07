@@ -1,7 +1,18 @@
 <template>
   <div class="about">
     <button @click="submitOrder">Order SLIK</button>
-    <p v-for="(key, value) in Object.entries(matchingCustomer)" :key="key">{{key}} : {{value}}</p>
+    <table>
+      <thead>
+        <td>Index</td>
+        <td>Json</td>
+      </thead>
+      <tbody>
+        <tr v-for="(value, index) in aggregationResult" :key="index">
+          <td>{{index}}</td>
+          <td>{{value}}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
@@ -12,7 +23,7 @@ export default {
   name: 'Kafka',
   data() {
     return {
-      matchingCustomer: {},
+      aggregationResult: {},
     };
   },
   methods: {
@@ -50,5 +61,17 @@ export default {
       }
     },
   },
+  async mounted() {
+    const { data } = await axios.get('http://localhost:3000/consumer');
+    this.aggregationResult = data.messages;
+  },
 };
 </script>
+
+<style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin-top: 25px;
+  }
+</style>
