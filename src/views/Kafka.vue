@@ -7,9 +7,9 @@
         <td>Json</td>
       </thead>
       <tbody>
-        <tr v-for="(value, index) in aggregationResult" :key="index">
+        <tr v-for="(result, index) in aggregationResult" :key="index">
           <td>{{index}}</td>
-          <td>{{value}}</td>
+          <td>{{result.value}}</td>
         </tr>
       </tbody>
     </table>
